@@ -9,14 +9,24 @@ const AgeCalculatorUI = () => {
   const [day, setDay] = useState("")
 
   const calculateAge = () => {
-    let date = new Date(currentDate) - new Date(dob);
-    let convertToAge = Math.floor(date / (1000 * 60 * 60 * 24 * 365))
-    let convertToMonth = Math.floor(date / (1000 * 60 * 60 * 24 * 30))
-    let convertToDay = Math.floor(date / (1000 * 60 * 60 * 24))
 
-    setAge(convertToAge)
-    setMonth(convertToMonth)
-    setDay(convertToDay)
+    let currentDate = new Date();
+    let birthDate = new Date(dob);
+    let age = currentDate.getFullYear() - birthDate.getFullYear();
+    let month = currentDate.getMonth() - birthDate.getMonth();
+    let day = currentDate.getDate() - birthDate.getDate();
+
+    if (month < 0) {
+      age--;
+      month += 12;
+    }
+    if (day < 0) {
+      month--;
+      day += 30;
+    }
+    setAge(age)
+    setMonth(month)
+    setDay(day)
   }
 
   return (
